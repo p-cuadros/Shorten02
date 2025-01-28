@@ -125,7 +125,7 @@ jobs:
       - name: Setup infracost
         uses: infracost/actions/setup@v3
         with:
-            api-key: ${{ secrets.infraCOST_API_KEY }}
+            api-key: ${{ secrets.INFRACOST_API_KEY }}
       - name: infracost
         run: |
             cd infra
