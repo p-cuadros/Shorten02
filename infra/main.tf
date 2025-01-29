@@ -61,7 +61,9 @@ resource "azurerm_linux_web_app" "webapp" {
     minimum_tls_version = "1.2"
     always_on = false
     application_stack {
-      dotnet_version = "8.0"
+      docker_image_name = "patrickcuadros/shorten:latest"
+      docker_registry_url = "https://index.docker.io"      
+      //dotnet_version = "8.0"
     }
   }
 }
