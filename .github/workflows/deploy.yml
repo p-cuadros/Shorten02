@@ -12,9 +12,9 @@ on:
   #     - 'infra/**'
   #     - '.github/workflows/**'
   workflow_dispatch:
-# permissions:
-#   contents: read
-
+permissions:
+  contents: read
+  packages: write
 jobs:
   build:
     runs-on: ubuntu-latest
