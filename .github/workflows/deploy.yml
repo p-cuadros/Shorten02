@@ -1,7 +1,7 @@
 name: Construcción y despliegue de una aplicación MVC a Azure
 
 env:
-  AZURE_WEBAPP_NAME: appblazor2024123456  # Aqui va el nombre de su aplicación
+  AZURE_WEBAPP_NAME: upt-awa-677  # Aqui va el nombre de su aplicación
   AZURE_WEBAPP_PACKAGE_PATH: '.'          # Es la ruta de destino
   DOTNET_VERSION: '8'                     # la versión de .NET
 
@@ -30,7 +30,7 @@ jobs:
       - name: 'Build Inventory Image'
         run: |
             docker build . --tag ghcr.io/${{github.actor}}/shorten:latest
-            docker push ghcr.io/${{github.actor}}/shorten:latest      
+            docker push ghcr.io/${{github.actor}}/shorten:latest
     #   - name: Probando az cli
     #     run: | 
     #       az login -u ${{ secrets.AWA_USERNAME }} -p ${{ secrets.AWA_PASSWORD }}
@@ -48,24 +48,24 @@ jobs:
     #       name: .net-app
     #       path: ${{env.DOTNET_ROOT}}/publish
 
-#   deploy:
-#     permissions:
-#       contents: none
-#     runs-on: ubuntu-latest
-#     needs: build
-#     environment:
-#       name: 'Development'
-#       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Development'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-#     steps:
-#       - name: Descargar el artefacto desde el job de construccion
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: .net-app
-#       - name: Desplegar a Azure Web App
-#         id: deploy-to-webapp
-#         uses: azure/webapps-deploy@v2
-#         with:
-#           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-#           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-#           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    steps:
+      - name: Descargar el artefacto desde el job de construccion
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+      - name: Desplegar a Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: ghcr.io/${{github.actor}}/shorten:latest
