@@ -16,6 +16,8 @@ LABEL org.opencontainers.image.source="https://github.com/p-cuadros/Shorten02"
 # Establecer el directorio de trabajo
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:80
+RUN apk add icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 # Copiar los archivos compilados desde la etapa de construcción
 COPY --from=build /app/out .
 
