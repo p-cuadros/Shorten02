@@ -1,5 +1,5 @@
 # Utilizar la imagen base de .NET SDK
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Establecer el directorio de trabajo
 WORKDIR /app
@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.source="https://github.com/p-cuadros/Shorten02"
 
 # Establecer el directorio de trabajo
 WORKDIR /app
-
+ENV ASPNETCORE_URLS=http://+:80
 # Copiar los archivos compilados desde la etapa de construcción
 COPY --from=build /app/out .
 
