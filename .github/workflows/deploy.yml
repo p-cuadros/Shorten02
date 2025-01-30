@@ -29,24 +29,8 @@ jobs:
 
       - name: 'Build Inventory Image'
         run: |
-            docker build . --tag ghcr.io/${{github.actor}}/shorten:latest
-            docker push ghcr.io/${{github.actor}}/shorten:latest
-    #   - name: Probando az cli
-    #     run: | 
-    #       az login -u ${{ secrets.AWA_USERNAME }} -p ${{ secrets.AWA_PASSWORD }}
-    #   - name: Configurando .NET Core
-    #     uses: actions/setup-dotnet@v4
-    #     with:
-    #       dotnet-version: ${{ env.DOTNET_VERSION }}
-    #   - name: Restaurar los paquetes
-    #     run: dotnet restore 
-    #   - name: Publicar la aplicación de manera local
-    #     run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/publish
-    #   - name: Subir el artefacto para el job de despliegue
-    #     uses: actions/upload-artifact@v4
-    #     with:
-    #       name: .net-app
-    #       path: ${{env.DOTNET_ROOT}}/publish
+            docker build . --tag ghcr.io/${{github.actor}}/shorten:${{github.sha}}
+            docker push ghcr.io/${{github.actor}}/shorten:${{github.sha}}
 
   deploy:
     permissions:
