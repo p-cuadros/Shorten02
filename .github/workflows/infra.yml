@@ -23,7 +23,8 @@ jobs:
           echo "suscription_id=\"${{ secrets.SUSCRIPTION_ID }}\"" > terraform.tfvars
           echo "sqladmin_username=\"${{ secrets.SQL_USER }}\"" >> terraform.tfvars
           echo "sqladmin_password=\"${{ secrets.SQL_PASS }}\"" >> terraform.tfvars
-
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
       - name: Setup tfsec
         run: |
           curl -L -o /tmp/tfsec_1.28.13_linux_amd64.tar.gz "https://github.com/aquasecurity/tfsec/releases/download/v1.28.13/tfsec_1.28.13_linux_amd64.tar.gz"
@@ -39,9 +40,6 @@ jobs:
           /usr/local/bin/tfsec --debug -f markdown --tfvars-file terraform.tfvars > tfsec.md 
           echo "## TFSec Output" >> $GITHUB_STEP_SUMMARY
           cat tfsec.md >> $GITHUB_STEP_SUMMARY
-  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
         id: init
         run: cd infra && terraform init 
