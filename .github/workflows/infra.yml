@@ -33,8 +33,10 @@ jobs:
       - name: tfsec
         run: |
           cd infra
-          /usr/local/bin/tfsec --format=markdown --tfvars-file=terraform.tfvars --out=tfsec.md .
+          pwd 
+          /usr/local/bin/tfsec -h
           ls -la
+          /usr/local/bin/tfsec --format=markdown --tfvars-file=terraform.tfvars --out=tfsec.md .
           echo "## TFSec Output" >> $GITHUB_STEP_SUMMARY
           cat tfsec.md >> $GITHUB_STEP_SUMMARY
   
