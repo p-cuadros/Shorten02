@@ -36,7 +36,7 @@ jobs:
           pwd 
           /usr/local/bin/tfsec -h
           ls -la
-          /usr/local/bin/tfsec --debug -f markdown > tfsec.md 
+          /usr/local/bin/tfsec --debug -f markdown --tfvars-file terraform.tfvars > tfsec.md 
           echo "## TFSec Output" >> $GITHUB_STEP_SUMMARY
           cat tfsec.md >> $GITHUB_STEP_SUMMARY
   
